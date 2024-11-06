@@ -39,7 +39,6 @@ function App() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data)
 				setQuotes((prevQuotes) => [...prevQuotes, data]); // Appends new quotes to current state
 				setName(""); // Clears the input fields
 				setMessage(""); 
