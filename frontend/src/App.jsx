@@ -14,6 +14,8 @@ function Quote({ name, message, time }) {
 function App() {
 	const [quotes, setQuotes] = useState([])
 	const [maxAge, setMaxAge] = useState("all") // Keeps track of filter selection
+	const [name, setName] = useState("") // Keeps track of the name the user inputs
+	const [message, setMessage] = useState("") // Keeps track of the message the user inputs
 
 	useEffect(() => {
 		async function fetchQuotes() {
@@ -24,6 +26,26 @@ function App() {
 		fetchQuotes();
 	}, [maxAge]);
 
+	const handleSubmit = (event) => {
+		event.preventDefault(); // Prevents page reload on form resubmit
+
+		const formData = new FormData();
+		formData.append("name", name);
+		formData.append("message", message);
+		
+		fetch("/api/quote", {
+			method: "POST",
+			body: formData,
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data)
+				setQuotes((prevQuotes) => [...prevQuotes, data]); // Appends new quotes to current state
+				setName(""); // Clears the input fields
+				setMessage(""); 
+			})
+	}
+
 	return (
 		<div className="App">
 			{/* TODO: include an icon for the quote book */}
@@ -31,11 +53,11 @@ function App() {
 
 			<h2>Submit a quote</h2>
 			{/* TODO: implement custom form submission logic to not refresh the page */}
-			<form action="/api/quote" method="post">
+			<form onSubmit={handleSubmit}>
 				<label htmlFor="input-name">Name</label>
-				<input type="text" name="name" id="input-name" required />
+				<input type="text" name="name" id="input-name" required value={name} onChange={(event) => setName(event.target.value)}/>
 				<label htmlFor="input-message">Quote</label>
-				<input type="text" name="message" id="input-message" required />
+				<input type="text" name="message" id="input-message" required value={message} onChange={(event) => setMessage(event.target.value)}/>
 				<button type="submit">Submit</button>
 			</form>
 
