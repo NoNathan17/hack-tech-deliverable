@@ -13,15 +13,16 @@ function Quote({ name, message, time }) {
 
 function App() {
 	const [quotes, setQuotes] = useState([])
+	const [maxAge, setMaxAge] = useState("all") // Keeps track of filter selection
 
 	useEffect(() => {
 		async function fetchQuotes() {
-			const response = await fetch("/api/quotes?max_age=all");
+			const response = await fetch(`/api/quotes?max_age=${maxAge}`);
             const data = await response.json();
             setQuotes(data);
 		}
 		fetchQuotes();
-	}, []);
+	}, [maxAge]);
 
 	return (
 		<div className="App">
@@ -37,6 +38,17 @@ function App() {
 				<input type="text" name="message" id="input-message" required />
 				<button type="submit">Submit</button>
 			</form>
+
+			<h2>Filter Quotes</h2>
+			<select
+				value={maxAge}
+				onChange={(event) => setMaxAge(event.target.value)}
+			>
+				<option value="all">All</option>
+				<option value="year">Last Year</option>
+				<option value="month">Last Month</option>
+				<option value="week">Last Week</option>
+			</select>
 
 			<h2>Previous Quotes</h2>
 			{/* TODO: Display the actual quotes from the database */}

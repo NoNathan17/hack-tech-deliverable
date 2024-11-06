@@ -68,7 +68,7 @@ async def get_quotes(max_age: str = "all") -> list[dict]:
             cutoff_date = None
 
     if cutoff_date: # Filters quotes based on the cutoff date
-        filtered_quotes = [quote for quote in quotes if datetime.isoformat(quote["time"]) > cutoff_date] 
+        filtered_quotes = [quote for quote in quotes if datetime.fromisoformat(quote["time"]) >= cutoff_date] 
         return filtered_quotes
     else:
         return quotes
