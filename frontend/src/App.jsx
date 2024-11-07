@@ -128,7 +128,7 @@ function App() {
 				{/* Smooth Scroll Button */}
 				<button
 					onClick={scrollToBottom}
-					className="absolute right-[-4rem] top-1 bg-white text-black px-4 py-2 rounded-lg hover:animate-bounce transition-colors"
+					className="absolute right-[-4rem] top-1 bg-white text-black px-4 py-2 rounded-lg animate-bounce transition-colors"
 				>
 					↓
 				</button>
@@ -148,7 +148,7 @@ function App() {
 				{/* Smooth Scroll Button */}
 				<button
 					onClick={scrollToTop}
-					className="absolute right-[-4rem] bottom-1 bg-white text-black px-4 py-2 rounded-lg hover:animate-bounce transition-colors"
+					className="absolute right-[-4rem] bottom-1 bg-white text-black px-4 py-2 rounded-lg animate-bounce transition-colors"
 				>
 					↑
 				</button>
