@@ -11,7 +11,7 @@ function Quote({ name, message, time }) { // Component for quotes
     );
 }
 
-function Notification({ message, type }) {
+function Notification({ message, type }) { // Component for notifications
     if (!message) return null;
     return (
         <div
@@ -74,28 +74,36 @@ function App() {
     };
 
 	return (
+		/* App */
 		<div className="min-h-screen bg-pink-50 p-8 scroll-smooth"> 
+
+			{/* Logo */}
 			<div className="logo flex justify-center mb-5">
 				<img src="/img/quotebook.png" alt="Logo" className="w-24 h-24"/>
 			</div>
+
+			{/* Title */}
 			<h1 className="text-4xl font-bold text-center text-black-600 mb-8">Hack at UCI Tech Deliverable</h1>
 
+			{/* Submit Form */}
 			<div className="max-w-lg mx-auto">
 				<h2 className="text-2xl font-semibold mb-4">Submit a quote</h2>
 				<form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+					{/* Input Name */}
 					<label htmlFor="input-name" className="block font-medium mb-1">Name</label>
 					<input type="text" name="name" id="input-name" required value={name} onChange={(e) => setName(e.target.value)}
 						className="w-full p-2 border rounded-md mb-4"
-						placeholder="John Doe"/>
-
+						placeholder="Buzz Lightyear"/>
+					{/* Input Quote */}
 					<label htmlFor="input-message" className="block font-medium mb-1">Quote</label>
 					<input type="text" name="message" id="input-message" required value={message} onChange={(e) => setMessage(e.target.value)}
 						className="w-full p-2 border rounded-md mb-4"
-						placeholder='"To Infinity and Beyond!" - Buzz Lightyear'/>
-
+						placeholder="To Infinity and Beyond!"/>
+					{/* Submit Button */}
 					<button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors">Submit</button>
 				</form>
 
+				{/* Quote Filter */}
 				<h2 className="text-2xl font-semibold mt-8 mb-4">Filter Quotes</h2>
 				<div className="bg-white p-2 rounded-lg shadow-md flex justify-center space-x-4">
 				{['all', 'year', 'month', 'week'].map((value) => (
@@ -114,29 +122,38 @@ function App() {
 				))}
 				</div>
 
+				{/* Previous Quotes */}
 				<h2 className="text-2xl font-semibold mt-8 mb-4">Previous Quotes</h2>
+				<div className="relative">
+				{/* Smooth Scroll Button */}
 				<button
 					onClick={scrollToBottom}
-					className="bg-white text-black px-4 py-2 rounded-lg hover:animate-bounce transition-colors"
+					className="absolute right-[-4rem] top-1 bg-white text-black px-4 py-2 rounded-lg hover:animate-bounce transition-colors"
 				>
 					↓
 				</button>
-				<div className="messages">
-					{quotes.map((quote, index) => (
-						<Quote
-							key={index}
-							name={quote.name}
-							message={quote.message}
-							time={quote.time}
-						/>
-					))}
-					<button
+				{/* Quotes */}
+				<div className="messages-wrapper relative max-w-lg mx-auto">
+					<div className="messages">
+						{quotes.map((quote, index) => (
+							<Quote
+								key={index}
+								name={quote.name}
+								message={quote.message}
+								time={quote.time}
+							/>
+						))}
+					</div>
+				</div>
+				{/* Smooth Scroll Button */}
+				<button
 					onClick={scrollToTop}
-					className=" bg-white text-black px-4 py-2 rounded-lg hover:animate-bounce transition-colors"
+					className="absolute right-[-4rem] bottom-1 bg-white text-black px-4 py-2 rounded-lg hover:animate-bounce transition-colors"
 				>
 					↑
 				</button>
-				</div>
+			</div>
+
 				<Notification message={notification.message} type={notification.type} />
             </div>
         </div>
